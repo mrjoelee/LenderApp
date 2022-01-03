@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LenderApp.Models
 {
@@ -18,5 +19,12 @@ namespace LenderApp.Models
         //amount must be positive amount, so from 1 to a max value of int
         [Range(1, int.MaxValue, ErrorMessage = "Amount must be greater than 0!")]
         public int Amount { get; set; }
+
+        //New entry for expense model, using another model (another table)
+        //making a connection via an Id - Foreign Key
+        [Display(Name = "Expense Type")]
+        public int ExpenseTypeId { get; set; }
+        [ForeignKey("ExpenseTypeId")]
+        public virtual ExpenseType ExpenseType { get; set; }
     }
 }
