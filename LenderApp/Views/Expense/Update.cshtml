@@ -1,0 +1,57 @@
+﻿@model LenderApp.Models.Expense
+
+@*when action has the same as the view, no need for asp-action*@
+<form method="post" asp-action="Update">
+    @*needs to specifically state which Id to update*@
+    <input asp-for="Id" hidden/>
+    <div class="border p-3">
+        <div class ="form-group row">
+            <h2 class="text-black-50 pl-3">Update Expense</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-6">
+                        @*using label and asp-for you can use the data from the model from Item*@
+                        <label asp-for="ExpenseName"></label>
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="Amount"></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-6"><br/>
+                        @*using input and asp-for so you can use the data from the model from Item*@
+                        <input asp-for="ExpenseName" class="form-control"/>
+                        @*will show the error message under the input value *@
+                        <span asp-validation-for="ExpenseName" class="text-danger"></span>
+                    </div>
+                    <div class="col-6"><br/>
+                        <input asp-for="Amount" class="form-control"/>
+                         @*will show the error message under the input value *@
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-2 row">
+                        <div class="col"><br/>
+                            <input type="submit" class= "btn btn-info w-75" value="Update" />
+                        </div>
+                        <div class="col"><br/>
+                             <a asp-action="Index" class="btn btn-danger w-75">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*client side validation*@
+@section Scripts{
+    @{<partial name ="_ValidationScriptsPartial"/>}
+}
+
+
+
+

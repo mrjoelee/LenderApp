@@ -83,6 +83,45 @@ namespace LenderApp.Controllers
             return RedirectToAction("Index");
             
         }
+
+        //Get Request Update
+        //sending the user to page of Update-View, after checking the Id
+        public IActionResult Update(int? id)
+        {
+
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var obj = _db.Expenses.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            return View(obj);
+
+        }
+
+        //Post Request Update
+        //updating the Db
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Update(Expense obj)
+        {
+            //server side validation
+            if (ModelState.IsValid)
+            {
+                _db.Expenses.Update(obj);
+                _db.SaveChanges();
+                //after adding and saving it to the Db, you want the return to the list of expenses.
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+
+
+        }
+
+
     }
 }
 
