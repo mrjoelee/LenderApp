@@ -23,6 +23,9 @@
                     <th>
                         Amount
                     </th>
+                    <th>
+                        Changes
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -30,8 +33,16 @@
                 {
                     @*for every single items inside the Model create a table row*@ 
                     <tr>
-                        <td width="50%">@expense.ExpenseName</td>
-                        <td width="50%">@expense.Amount</td>
+                        <td width="35%">@expense.ExpenseName</td>
+                        <td width="35%">@expense.Amount</td>
+                        <td width="30%">
+                            <div class="w-100 btn-group" role="group">
+                                <a asp-controller="Expense" asp-action="Update" asp-route-id="@expense.Id"
+                                class="btn btn-primary mx-1">Update</a>
+                                <a asp-controller="Expense" asp-action="Delete" asp-route-id="@expense.Id"
+                                class="btn btn-danger mx-1">Delete</a>
+                            </div>
+                        </td>
                     </tr>
                 }
             </tbody>
