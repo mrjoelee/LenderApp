@@ -5,8 +5,8 @@
         <div class="col-6">
             <h2 class="text-primary">Borrowed Items List</h2>
         </div>
-        <div class="col-6">
-            Create New Item
+        <div class="col-6 text-end">
+            <a asp-controller="Item" asp-action="Create" class="btn btn-primary">Create New Item</a>
         </div>
     </div>
     <br />
@@ -33,9 +33,9 @@
                 {
                     @*for every single items inside the Model create a table row*@ 
                     <tr>
-                        <td width="30%"></td>
+                        <td width="30%">@item.ItemName</td>
                         <td width="30%">@item.Borrower</td>
-                        <td width="30%">@item.Id</td>
+                        <td width="30%">@item.Lender</td>
                     </tr>
                 }
             </tbody>
