@@ -34,10 +34,15 @@ namespace LenderApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Expense obj)
         {
-            _db.Expenses.Add(obj);
-            _db.SaveChanges();
-            //after adding and saving it to the Db, you want the return to the list of expenses.
-            return RedirectToAction("Index");
+            //server side validation
+            if (ModelState.IsValid)
+            {
+                _db.Expenses.Add(obj);
+                _db.SaveChanges();
+                //after adding and saving it to the Db, you want the return to the list of expenses.
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
     }
 }
