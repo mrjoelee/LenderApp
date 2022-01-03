@@ -15,13 +15,15 @@ namespace LenderApp.Controllers
         {
             _db = db;
         }
-
+        
         public IActionResult Index()
         {
             //retrieve expenses from the database
             IEnumerable<Expense> objList = _db.Expenses;
             return View(objList);
         }
+        
+
         // Get Create
         public IActionResult Create()
         {
@@ -43,6 +45,43 @@ namespace LenderApp.Controllers
                 return RedirectToAction("Index");
             }
             return View(obj);
+        }
+        //Get Request Delete
+        //sending the user to page of delete-View, after checking the Id
+        public IActionResult Delete(int? id)
+        {
+           
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var obj = _db.Expenses.Find(id);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+            return View(obj);
+
+        }
+
+        //Post Delete
+        //will delete the item from the list of item
+        [HttpPost]
+        //making the application safe, only authorizer users can have access
+        [ValidateAntiForgeryToken]
+        //putting int id parameter for that specific item (object)
+        public IActionResult DeletePost(int? id)
+        {
+            //finds the item by using the id
+            var obj = _db.Expenses.Find(id);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+            _db.Expenses.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+            
         }
     }
 }
