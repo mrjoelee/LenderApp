@@ -1,5 +1,50 @@
-﻿@model IEnumerable<LenderApp.Models.Item>
+﻿@model LenderApp.Models.Item
 
+<form method="post" asp-action="Create">
+    <div class="border p-3">
+        <div class ="form-group row">
+            <h2 class="text-black-50 pl-3">Add Item</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-4">
+                        @*using label and asp-for you can use the data from the model from Item*@
+                        <label asp-for="ItemName"></label>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="Borrower"></label>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="Lender"></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        @*using input and asp-for so you can use the data from the model from Item*@
+                        <input asp-for="ItemName" class="form-control"/>
+                    </div>
+                    <div class="col-4">
+                        <input asp-for="ItemName" class="form-control"/>
+                    </div>
+                    <div class="col-4">
+                        <input asp-for="ItemName" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 text-center row">
+                        <div class="col">
+                            Create Button
+                        </div>
+                        <div class="col">
+                            Create Button
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 
 

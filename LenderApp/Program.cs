@@ -1,5 +1,6 @@
 using LenderApp.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Razor.Runtime;
 
 var builder = WebApplication.CreateBuilder(args);
 
