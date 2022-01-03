@@ -22,10 +22,21 @@ namespace LenderApp.Controllers
             IEnumerable<Item> objList = _db.Items;
             return View(objList);
         }
-
+        // Get Create
         public IActionResult Create()
         {
             return View();
+        }
+
+        //Post Create - need to send it over.
+        [HttpPost]
+        //making the application safe, only authorizer users can have access
+        public IActionResult Create(Item obj)
+        {
+            _db.Items.Add(obj);
+            _db.SaveChanges();
+            //after adding and saving it to the Db, you want the return to the list of items.
+            return RedirectToAction("Index");
         }
     }
 }
