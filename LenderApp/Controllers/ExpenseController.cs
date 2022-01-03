@@ -4,22 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LenderApp.Controllers
 {
-    public class ItemController : Controller
+    public class ExpenseController : Controller
     {
         //using dependency injections
 
         private readonly ApplicationDbContext _db;
 
         //creating a constructor to access the applicationdbcontext
-        public ItemController(ApplicationDbContext db)
+        public ExpenseController(ApplicationDbContext db)
         {
             _db = db;
         }
 
         public IActionResult Index()
         {
-            //retrieve items from the database
-            IEnumerable<Item> objList = _db.Items;
+            //retrieve expenses from the database
+            IEnumerable<Expense> objList = _db.Expenses;
             return View(objList);
         }
         // Get Create
@@ -32,12 +32,13 @@ namespace LenderApp.Controllers
         [HttpPost]
         //making the application safe, only authorizer users can have access
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Item obj)
+        public IActionResult Create(Expense obj)
         {
-            _db.Items.Add(obj);
+            _db.Expenses.Add(obj);
             _db.SaveChanges();
-            //after adding and saving it to the Db, you want the return to the list of items.
+            //after adding and saving it to the Db, you want the return to the list of expenses.
             return RedirectToAction("Index");
         }
     }
 }
+

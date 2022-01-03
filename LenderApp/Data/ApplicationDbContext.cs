@@ -13,5 +13,7 @@ namespace LenderApp.Data
         //creating a new db set inside the application
 
         public DbSet<Item> Items { get; set; }
+
+        public DbSet<Expense> Expenses { get; set; }
     }
 }
