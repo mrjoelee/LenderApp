@@ -1,5 +1,6 @@
 ﻿using LenderApp.Data;
 using LenderApp.Models;
+using LenderApp.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -30,28 +31,36 @@ namespace LenderApp.Controllers
         {
 
             //user can select a type of expense by creating a enumerable of all expense types
-            IEnumerable<SelectListItem> TypeDropDown = _db.ExpenseTypes.Select(i => new SelectListItem
-            {
-                Text = i.Name,
-                Value = i.Id.ToString(),
-            });
+            //IEnumerable<SelectListItem> TypeDropDown = _db.ExpenseTypes.Select(i => new SelectListItem
+            //{
+            //    Text = i.Name,
+            //    Value = i.Id.ToString(),
+            //});
             ////a way to pass data from controller to the view
-            ViewBag.TypeDropDown = TypeDropDown;
-
-            return View();
+            //ViewBag.TypeDropDown = TypeDropDown;
+            ExpenseVM expenseVM = new ExpenseVM()
+            {
+                Expense = new Expense(),
+                TypeDropDown = _db.ExpenseTypes.Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString(),
+                })
+            };
+            return View(expenseVM);
         }
 
         //Post Create - need to send it over.
         [HttpPost]
         //making the application safe, only authorizer users can have access
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Expense obj)
+        public IActionResult Create(ExpenseVM obj)
         {
 
             //server side validation
             if (ModelState.IsValid)
             {
-                _db.Expenses.Add(obj);
+                _db.Expenses.Add(obj.Expense);
                 _db.SaveChanges();
                 //after adding and saving it to the Db, you want the return to the list of expenses.
                 return RedirectToAction("Index");
