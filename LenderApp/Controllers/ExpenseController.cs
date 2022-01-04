@@ -22,6 +22,14 @@ namespace LenderApp.Controllers
         {
             //retrieve expenses from the database
             IEnumerable<Expense> objList = _db.Expenses;
+
+            //a foreach for every single obj in that obj list, set the expense type,
+            //for the 1st entry that has the Id
+            foreach (var obj in objList)
+            {
+                obj.ExpenseType = _db.ExpenseTypes.FirstOrDefault(u => u.Id == obj.ExpenseTypeId);
+            }
+
             return View(objList);
         }
         
@@ -60,6 +68,7 @@ namespace LenderApp.Controllers
             //server side validation
             if (ModelState.IsValid)
             {
+                //uses the obj expense from the ExpenseVM
                 _db.Expenses.Add(obj.Expense);
                 _db.SaveChanges();
                 //after adding and saving it to the Db, you want the return to the list of expenses.
@@ -110,16 +119,25 @@ namespace LenderApp.Controllers
         public IActionResult Update(int? id)
         {
 
+            ExpenseVM expenseVM = new ExpenseVM()
+            {
+                Expense = new Expense(),
+                TypeDropDown = _db.ExpenseTypes.Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString(),
+                })
+            };
             if (id == null || id == 0)
             {
                 return NotFound();
             }
-            var obj = _db.Expenses.Find(id);
-            if (obj == null)
+            expenseVM.Expense = _db.Expenses.Find(id);
+            if (expenseVM.Expense == null)
             {
                 return NotFound();
             }
-            return View(obj);
+            return View(expenseVM);
 
         }
 
@@ -127,12 +145,12 @@ namespace LenderApp.Controllers
         //updating the Db
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(Expense obj)
+        public IActionResult Update(ExpenseVM obj)
         {
             //server side validation
             if (ModelState.IsValid)
             {
-                _db.Expenses.Update(obj);
+                _db.Expenses.Update(obj.Expense);
                 _db.SaveChanges();
                 //after adding and saving it to the Db, you want the return to the list of expenses.
                 return RedirectToAction("Index");

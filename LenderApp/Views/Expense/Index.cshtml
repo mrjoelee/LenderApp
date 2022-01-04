@@ -24,6 +24,9 @@
                         Amount
                     </th>
                     <th>
+                        Type
+                    </th>
+                    <th>
                         Changes
                     </th>
                 </tr>
@@ -33,9 +36,10 @@
                 {
                     @*for every single items inside the Model create a table row*@ 
                     <tr>
-                        <td width="35%">@expense.ExpenseName</td>
-                        <td width="35%">@expense.Amount</td>
-                        <td width="30%">
+                        <td width="25%">@expense.ExpenseName</td>
+                        <td width="25%">@expense.Amount</td>
+                        <td width="25%">@expense.ExpenseType.Name</td>
+                        <td width="25%">
                             <div class="w-100 btn-group" role="group">
                                 <a asp-controller="Expense" asp-action="Update" asp-route-id="@expense.Id"
                                 class="btn btn-primary mx-1">Update</a>
