@@ -11,26 +11,37 @@
         <div class="row">
             <div class="col-12">
                 <div class="form-group row">
-                    <div class="col-6">
+                    <div class="col-4">
                         @*using label and asp-for you can use the data from the model from Item*@
                         <label asp-for="ExpenseName"></label>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <label asp-for="Amount"></label>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="ExpenseType"></label>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-6"><br/>
+                    <div class="col-4"><br/>
                         @*using input and asp-for so you can use the data from the model from Item*@
                         <input asp-for="ExpenseName" class="form-control"/>
+
                         @*will show the error message under the input value *@
                         <span asp-validation-for="ExpenseName" class="text-danger"></span>
                     </div>
-                    <div class="col-6"><br/>
+                    <div class="col-4"><br/>
                         <input asp-for="Amount" class="form-control"/>
                          @*will show the error message under the input value *@
                         <span asp-validation-for="Amount" class="text-danger"></span>
                     </div>
+                    <div class="col-4"><br/>
+                        <select asp-for="ExpenseTypeId" asp-items="@ViewBag.TypeDropDown" class="form-control">
+                        <option>Select Expense Type</option>
+                        </select>
+                         @*will show the error message under the input value *@
+                        <span asp-validation-for="ExpenseTypeId" class="text-danger"></span>
+                   </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-8 offset-2 row">

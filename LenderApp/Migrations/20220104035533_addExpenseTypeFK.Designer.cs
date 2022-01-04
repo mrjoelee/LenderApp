@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LenderApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220103204236_addExpenseTypes")]
-    partial class addExpenseTypes
+    [Migration("20220104035533_addExpenseTypeFK")]
+    partial class addExpenseTypeFK
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,7 +38,12 @@ namespace LenderApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ExpenseTypeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ExpenseTypeId");
 
                     b.ToTable("Expenses");
                 });
@@ -83,6 +88,17 @@ namespace LenderApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("LenderApp.Models.Expense", b =>
+                {
+                    b.HasOne("LenderApp.Models.ExpenseType", "ExpenseType")
+                        .WithMany()
+                        .HasForeignKey("ExpenseTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExpenseType");
                 });
 #pragma warning restore 612, 618
         }

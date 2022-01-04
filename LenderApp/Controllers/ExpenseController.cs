@@ -1,6 +1,7 @@
 ﻿using LenderApp.Data;
 using LenderApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LenderApp.Controllers
 {
@@ -27,6 +28,16 @@ namespace LenderApp.Controllers
         // Get Create
         public IActionResult Create()
         {
+
+            //user can select a type of expense by creating a enumerable of all expense types
+            IEnumerable<SelectListItem> TypeDropDown = _db.ExpenseTypes.Select(i => new SelectListItem
+            {
+                Text = i.Name,
+                Value = i.Id.ToString(),
+            });
+            ////a way to pass data from controller to the view
+            ViewBag.TypeDropDown = TypeDropDown;
+
             return View();
         }
 
@@ -36,6 +47,7 @@ namespace LenderApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Expense obj)
         {
+
             //server side validation
             if (ModelState.IsValid)
             {

@@ -22,9 +22,9 @@ namespace LenderApp.Models
 
         //New entry for expense model, using another model (another table)
         //making a connection via an Id - Foreign Key
-        [Display(Name = "Expense Type")]
-        public int ExpenseTypeId { get; set; }
+        [DisplayName("Expense Type")]
+        public int? ExpenseTypeId { get; set; }
         [ForeignKey("ExpenseTypeId")]
-        public virtual ExpenseType ExpenseType { get; set; }
+        public virtual ExpenseType? ExpenseType { get; set; }
     }
 }

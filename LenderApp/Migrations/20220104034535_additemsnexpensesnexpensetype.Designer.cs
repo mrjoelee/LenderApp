@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LenderApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220103071022_addExpensesToDataBase")]
-    partial class addExpensesToDataBase
+    [Migration("20220104034535_additemsnexpensesnexpensetype")]
+    partial class additemsnexpensesnexpensetype
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,6 +41,23 @@ namespace LenderApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Expenses");
+                });
+
+            modelBuilder.Entity("LenderApp.Models.ExpenseType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExpenseTypes");
                 });
 
             modelBuilder.Entity("LenderApp.Models.Item", b =>

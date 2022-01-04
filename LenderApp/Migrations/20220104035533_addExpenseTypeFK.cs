@@ -4,7 +4,7 @@
 
 namespace LenderApp.Migrations
 {
-    public partial class addedExpenseTypeFK : Migration
+    public partial class addExpenseTypeFK : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
